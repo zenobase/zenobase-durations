@@ -9,8 +9,6 @@ void main() {
 
   CapturingMiddleware<AppState> actions;
 
-  matchesGolden(String key) => matchesGoldenFile("widgets_test/$key.png");
-
   setUp(() {
     actions = CapturingMiddleware<AppState>();
   });
@@ -40,8 +38,6 @@ void main() {
     expect(find.descendant(of: findBar, matching: find.text(bar.label)), findsOneWidget);
     expect(find.descendant(of: findBar, matching: find.text("just now")), findsOneWidget);
     expect(find.descendant(of: findBar, matching: find.text("1")), findsOneWidget);
-
-    await expectLater(find.byType(DurationsApp), matchesGolden("bucket_list"));
   });
 
   testWidgets("add a bucket", (WidgetTester tester) async {
@@ -93,8 +89,6 @@ void main() {
     expect(find.byType(BucketPage), findsOneWidget);
     expect(find.byType(BucketListPage), findsNothing);
     expect(find.byKey(Key(event.id)), findsOneWidget);
-
-    await expectLater(find.byType(DurationsApp), matchesGolden("event_list"));
   });
 
   testWidgets("add an event", (WidgetTester tester) async {
