@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:redurx/redurx.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   var base = await getApplicationDocumentsDirectory();
   var manager = DatabaseManager(path.join(base.path, "durations.db"));
   var buckets = BucketRepository(manager);
