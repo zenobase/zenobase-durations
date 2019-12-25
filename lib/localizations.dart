@@ -91,10 +91,10 @@ class CustomLocalizations {
     if (d == null) {
       return message("duration_never");
     }
-    if (d.inDays > 7) {
+    if (d.inDays >= 14) {
       return sprintf(message("duration_weeks_past"), [d.inDays ~/ 7]);
     }
-    if (d.inDays == 7) {
+    if (d.inDays >= 7) {
       return message("duration_one_week_past");
     }
     if (d.inDays > 1) {

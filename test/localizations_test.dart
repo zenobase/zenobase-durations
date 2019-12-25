@@ -72,6 +72,10 @@ void main() {
       expect(en.formatDuration(Duration(days: 7)), equals("1 week ago"));
     });
 
+    test("one week ago and one day ago", () {
+      expect(en.formatDuration(Duration(days: 8)), equals("1 week ago"));
+    });
+
     test("two weeks ago", () {
       expect(en.formatDuration(Duration(days: 15)), equals("2 weeks ago"));
     });
