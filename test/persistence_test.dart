@@ -10,7 +10,7 @@ void main() {
 
   group("repositories", () {
 
-    var manager;
+    DatabaseManager manager;
     var uuid = Uuid().v4;
 
     setUp(() async {
@@ -43,7 +43,7 @@ void main() {
       var second = EventEntity(uuid(), first.bucketId, OffsetDateTime.now());
       var other = EventEntity(uuid(), uuid(), first.timestamp);
 
-      await Future.forEach([first, second, other], (event) => repository.store(event));
+      await Future.forEach([first, second, other], (EventEntity event) => repository.store(event));
       expect(await repository.findAll(first.bucketId), equals([first, second]));
 
       await repository.removeAll(first.bucketId);
@@ -76,7 +76,7 @@ void main() {
       var foo = BucketEntity(uuid(), "foo");
       var bar = BucketEntity(uuid(), "bar");
 
-      await Future.forEach([foo, bar], (bucket) => repository.store(bucket));
+      await Future.forEach([foo, bar], (BucketEntity bucket) => repository.store(bucket));
       expect(await repository.findAll(), equals([bar, foo]));
     });
 
@@ -89,9 +89,9 @@ void main() {
   group("PersistenceMiddleware", () {
 
     var id = Uuid().v4();
-    var events;
-    var buckets;
-    var persistence;
+    EventRepository events;
+    BucketRepository buckets;
+    PersistenceMiddleware persistence;
 
     setUp(() {
       events = MockEventRepository();

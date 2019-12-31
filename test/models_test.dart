@@ -14,7 +14,7 @@ void main() {
 
       expect(updated.id, equals(bucket.id), reason: "id for the updated bucket");
       expect(updated.label, equals(bucket.label), reason: "label for the updated bucket");
-      expect(bucket.events, equals(const []), reason: "events for the original bucket");
+      expect(bucket.events, equals(<Event>[]), reason: "events for the original bucket");
       expect(updated.events, equals([event]), reason: "events for the updated bucket");
 
       event = Event(event.id, OffsetDateTime.now());

@@ -65,7 +65,7 @@ class BucketListPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showDialog(
+        onPressed: () => showDialog<bool>(
           context: context,
           barrierDismissible: false,
           builder: (context) => BucketDialog(),
@@ -91,7 +91,7 @@ class BucketTile extends StatelessWidget {
     title: Text(_bucket.label),
     subtitle: Text(CustomLocalizations.of(context).formatDuration(_since())),
     trailing: _bucket.size() > 0 ? Chip(label: Text(_bucket.size().toString())) : null,
-    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BucketPage(_bucket))),
+    onTap: () => Navigator.push(context, MaterialPageRoute<bool>(builder: (context) => BucketPage(_bucket))),
     onLongPress: () => Provider.dispatch<AppState>(context, StoreEvent(_bucket.id, Event.generate(OffsetDateTime.now()))),
   );
 }

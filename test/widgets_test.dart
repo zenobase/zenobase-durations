@@ -52,7 +52,7 @@ void main() {
     await tester.pump();
 
     expect(actions.count(), 1);
-    expect(actions.get(0).runtimeType, StoreBucket);
+    expect(actions.get<Object>(0).runtimeType, StoreBucket);
     expect(actions.get<StoreBucket>(0).bucket.label, "foo");
 
     expect(find.byType(BucketTile), findsOneWidget);
@@ -69,7 +69,7 @@ void main() {
     await tester.pump();
 
     expect(actions.count(), 1);
-    expect(actions.get(0).runtimeType, StoreEvent);
+    expect(actions.get<Object>(0).runtimeType, StoreEvent);
     expect(actions.get<StoreEvent>(0).bucketId, bucket.id);
     expect(actions.get<StoreEvent>(0).event, isNotNull);
 
@@ -105,7 +105,7 @@ void main() {
     await tester.pump();
 
     expect(actions.count(), 1);
-    expect(actions.get(0).runtimeType, StoreEvent);
+    expect(actions.get<Object>(0).runtimeType, StoreEvent);
     expect(actions.get<StoreEvent>(0).bucketId, bucket.id);
     expect(actions.get<StoreEvent>(0).event, isNotNull);
 
@@ -128,7 +128,7 @@ void main() {
     await tester.pump();
 
     expect(actions.count(), 1);
-    expect(actions.get(0).runtimeType, UpdateEvent);
+    expect(actions.get<Object>(0).runtimeType, UpdateEvent);
     expect(actions.get<UpdateEvent>(0).bucketId, bucket.id);
     expect(actions.get<UpdateEvent>(0).from, event);
     expect(actions.get<UpdateEvent>(0).to.id, event.id);
@@ -149,7 +149,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(actions.count(), 1);
-    expect(actions.get(0).runtimeType, RemoveEvent);
+    expect(actions.get<Object>(0).runtimeType, RemoveEvent);
     expect(actions.get<RemoveEvent>(0).bucketId, bucket.id);
     expect(actions.get<RemoveEvent>(0).event, event);
 
@@ -169,7 +169,7 @@ void main() {
     await tester.pump(Duration(seconds: 1));
 
     expect(actions.count(), 1);
-    expect(actions.get(0).runtimeType, RemoveBucket);
+    expect(actions.get<Object>(0).runtimeType, RemoveBucket);
     expect(actions.get<RemoveBucket>(0).bucket, bucket);
 
     expect(find.byType(BucketListPage), findsOneWidget);

@@ -10,7 +10,7 @@ class AppState {
 
   AppState._(Map<String, Bucket> buckets) : _buckets = Map.unmodifiable(buckets);
 
-  AppState.from(Iterable<Bucket> buckets) : this._(Map.fromIterable(buckets, key: (bucket) => bucket.id));
+  AppState.from(Iterable<Bucket> buckets) : this._(Map.fromEntries(buckets.map((bucket) => MapEntry(bucket.id, bucket))));
 
   AppState storeBucket(Bucket bucket) {
     return _modify((buckets) => buckets[bucket.id] = bucket);

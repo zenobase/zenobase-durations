@@ -38,7 +38,7 @@ void main() {
       var action = StoreEvent(bucket.id, event);
       var state0 = AppState.from([bucket]);
       var state1 = action.reduce(state0);
-      expect(state0.findBucket(bucket.id).events, []);
+      expect(state0.findBucket(bucket.id).events, <Event>[]);
       expect(state1.findBucket(bucket.id).events, [event]);
       expect(action.undo().bucketId, bucket.id);
       expect(action.undo().event, event);
@@ -65,7 +65,7 @@ void main() {
       var state0 = AppState.from([bucket.withEvent(event)]);
       var state1 = action.reduce(state0);
       expect(state0.findBucket(bucket.id).events, [event]);
-      expect(state1.findBucket(bucket.id).events, []);
+      expect(state1.findBucket(bucket.id).events, <Event>[]);
       expect(action.undo().bucketId, bucket.id);
       expect(action.undo().event, event);
     });
