@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:charts_flutter/flutter.dart';
 import 'package:durations/localizations.dart';
 import 'package:durations/models.dart';
 import 'package:durations/states.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -180,12 +182,28 @@ class BucketPageState extends State<BucketPage> {
           child: Connect<AppState, Bucket>(
             convert: (state) => state.findBucket(widget._bucket.id),
             where: (oldBucket, newBucket) => newBucket != oldBucket || newBucket.events != oldBucket.events,
-            builder: (Bucket bucket) => ListView.separated(
-              itemCount: bucket.size(),
-              itemBuilder: (context, i) => EventTile(bucket, bucket.events[bucket.size() - 1 - i]),
-              separatorBuilder: (context, i) => Divider(),
+            builder: (Bucket bucket) => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                if (bucket.size() > 2)
+                  SizedBox(
+                    height: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: HistogramChart(bucket.id, bucket.histogram()),
+                    )
+                  ),
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: bucket.size(),
+                    itemBuilder: (context, i) => EventTile(bucket, bucket.events[bucket.size() - 1 - i]),
+                    separatorBuilder: (context, i) => Divider(),
+                    shrinkWrap: true,
+                  ),
+                ),
+              ],
             ),
-          ),
+          )
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
@@ -198,6 +216,25 @@ class BucketPageState extends State<BucketPage> {
           child: Icon(Icons.add),
         )
     );
+  }
+}
+
+class HistogramChart extends StatelessWidget {
+
+  final List<Series<Bin, String>> _seriesList;
+
+  HistogramChart(String id, Histogram histogram) : _seriesList = [
+    Series<Bin, String>(
+      id: id,
+      domainFn: (bin, _) => bin.label,
+      measureFn: (bin, _) => bin.count,
+      data: histogram.bins
+    )
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return BarChart(_seriesList, domainAxis: OrdinalAxisSpec(showAxisLine: false, renderSpec: SmallTickRendererSpec(tickLengthPx: 0)));
   }
 }
 

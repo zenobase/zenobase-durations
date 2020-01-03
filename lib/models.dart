@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:more/collection.dart';
+import 'package:quiver/iterables.dart' as iterables;
 import 'package:sprintf/sprintf.dart';
 import 'package:uuid/uuid.dart';
 
@@ -41,6 +43,18 @@ class Bucket extends Equatable {
     apply(modifiable);
     modifiable.sort((a, b) => a.timestamp.compareTo(b.timestamp));
     return modifiable;
+  }
+
+  Histogram histogram() {
+    var durations = <Duration>[];
+    Event last;
+    for (var event in events) {
+      if (last != null) {
+        durations.add(event.timestamp.utc.difference(last.timestamp.utc));
+      }
+      last = event;
+    }
+    return Histogram.from(durations);
   }
 
   String toString() => "{id: $id, label: $label, events: $events}";
@@ -110,4 +124,48 @@ class OffsetDateTime extends Equatable implements Comparable<OffsetDateTime> {
     _offset.inHours,
     _offset.inMinutes.abs() % 60
   ]);
+}
+
+class Histogram extends Equatable {
+
+  final List<Bin> bins;
+
+  Histogram(this.bins);
+
+  static Histogram from(Iterable<Duration> durations, { int maxBins = 5 }) {
+    if (durations.isEmpty) {
+      return Histogram(const []);
+    }
+    var days = durations.map((d) => d.inDays).toList();
+    var binExtent = iterables.extent(days);
+    var binSpan = binExtent.max - binExtent.min + 1;
+    var binOffset = binExtent.min;
+    var binSize = (binSpan / maxBins).ceil();
+    var binCount = (binSpan / binSize).ceil();
+    var binValues = Multiset.from(days.map((day) => (day - binOffset) ~/ binSize));
+    var bins = List.generate(binCount, (i) => Bin(binOffset + i * binSize, binOffset + (i + 1) * binSize - 1, binValues[i]));
+    return Histogram(bins);
+  }
+
+  @override
+  List<Object> get props => [bins];
+
+  @override
+  String toString() => bins.toString();
+}
+
+class Bin extends Equatable {
+
+  final int min, max;
+  final int count;
+
+  Bin(this.min, this.max, this.count);
+
+  String get label => max > min ? "$min–${max}d" : "${min}d";
+
+  @override
+  List<Object> get props => [min, max, count];
+
+  @override
+  String toString() => "$label:$count";
 }

@@ -24,6 +24,14 @@ void main() {
       expect(updated.withoutEvent(event.id), equals(bucket), reason: "bucket after removing the event");
     });
 
+    test("histogram", () {
+      var now = DateTime.now();
+      var bucket = Bucket.generate("foo")
+          .withEvent(Event.generate(OffsetDateTime(now)))
+          .withEvent(Event.generate(OffsetDateTime(now.add(Duration(days: 1)))));
+      expect(bucket.histogram(), Histogram([Bin(1, 1, 1)]));
+    });
+
     test("equality", () {
       final bucket = Bucket.generate("foo");
       expect({
@@ -105,6 +113,56 @@ void main() {
         "now": [OffsetDateTime(now), OffsetDateTime(now)],
         "earliest": [OffsetDateTime.earliest]
       }, areEqualityGroups);
+    });
+  });
+
+  group("Histogram", () {
+
+    test("empty", () {
+      expect(Histogram.from([]), Histogram([]));
+    });
+
+    test("single value", () {
+      expect(Histogram.from([
+        Duration(days: 42),
+      ]), Histogram([
+        Bin(42, 42, 1)
+      ]));
+    });
+
+    test("multiple values, single bin", () {
+      expect(Histogram.from([
+        Duration(days: 42),
+        Duration(days: 42),
+      ]), Histogram([
+        Bin(42, 42, 2)
+      ]));
+    });
+
+    test("multiple values, multiple bins", () {
+      expect(Histogram.from([
+        Duration(days: 4),
+        Duration(days: 4),
+        Duration(days: 5),
+      ]), Histogram([
+        Bin(4, 4, 2),
+        Bin(5, 5, 1),
+      ]));
+    });
+
+    test("bins spanning multiple values", () {
+      expect(Histogram.from([
+        Duration(days: 1),
+        Duration(days: 2),
+        Duration(days: 3),
+        Duration(days: 4),
+        Duration(days: 5),
+        Duration(days: 6),
+      ]), Histogram([
+        Bin(1, 2, 2),
+        Bin(3, 4, 2),
+        Bin(5, 6, 2),
+      ]));
     });
   });
 }

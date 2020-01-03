@@ -11,8 +11,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_redurx: 1.1.1
+  charts_flutter: 0.8.1
   equatable: 1.0.1
   meta: 1.1.8
+  more: 2.2.0
   path: 1.6.4
   path_provider: 1.5.1
   quiver: 2.0.5
