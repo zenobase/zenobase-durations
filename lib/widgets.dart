@@ -292,11 +292,15 @@ class EventTile extends StatelessWidget {
 }
 
 Future<DateTime> _showDateTimePicker(BuildContext context, DateTime initial) async {
+  var now = DateTime.now();
+  var endOfDay = DateTime(now.year, now.month, now.day)
+    .add(const Duration(days: 1))
+    .subtract(const Duration(microseconds: 1));
   var day = await showDatePicker(
     context: context,
     initialDate: initial,
     firstDate: OffsetDateTime.earliest.local,
-    lastDate: DateTime.now()
+    lastDate: endOfDay
   );
   if (day == null) {
     return null;
