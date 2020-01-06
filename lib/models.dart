@@ -171,3 +171,16 @@ class Bin extends Equatable {
   @override
   String toString() => "$label:$count";
 }
+
+@immutable
+class File {
+
+  final String name;
+  final List<int> bytes;
+  final String mimeType;
+
+  File(this.name, this.bytes, this.mimeType);
+
+  @override
+  String toString() => name;
+}

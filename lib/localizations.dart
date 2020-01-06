@@ -18,6 +18,7 @@ class CustomLocalizations {
       "label_field_hint": "Label",
       "add_button_tooltip": "Add",
       "remove_button_tooltip": "Remove",
+      "export_menu_item": "Export...",
       "undo_label": "Undo",
       "event_added": "Logged an event.",
       "event_updated": "Updated an event.",
@@ -40,6 +41,7 @@ class CustomLocalizations {
       "label_field_hint": "Label",
       "add_button_tooltip": "Hinzufügen",
       "remove_button_tooltip": "Löschen",
+      "export_menu_item": "Exportieren...",
       "undo_label": "Rückgängig machen",
       "event_added": "Ein Ereignis wurde hinzugefügt.",
       "event_updated": "Ein Ereignis wurde aktualisiert.",
@@ -62,6 +64,7 @@ class CustomLocalizations {
       "label_field_hint": "Label",
       "add_button_tooltip": "Ajouter",
       "remove_button_tooltip": "Effacer",
+      "export_menu_item": "Exporter...",
       "undo_label": "Annuler",
       "event_added": "Evénement enregistré.",
       "event_updated": "Evénement mis à jour.",
@@ -85,6 +88,7 @@ class CustomLocalizations {
   String get labelFieldHint => message("label_field_hint");
   String get addButtonTooltip => message("add_button_tooltip");
   String get removeButtonTooltip => message("remove_button_tooltip");
+  String get exportMenuItem => message("export_menu_item");
   String get undoLabel => message("undo_label");
 
   String formatDuration(Duration d) {

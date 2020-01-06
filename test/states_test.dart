@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:durations/models.dart';
 import 'package:durations/states.dart';
 import "package:test/test.dart";
@@ -68,6 +70,19 @@ void main() {
       expect(state1.findBucket(bucket.id).events, <Event>[]);
       expect(action.undo().bucketId, bucket.id);
       expect(action.undo().event, event);
+    });
+
+    test("export", () {
+      var bucket = Bucket.generate("test")
+        .withEvent(Event.generate(OffsetDateTime.earliest));
+      var state = AppState.from([bucket]);
+      var file = state.export(DateTime(2020, 01, 31));
+      expect(file.name, "durations_2020-01-31.csv");
+      expect(utf8.decode(file.bytes).split("\n"), [
+        "tag,timestamp",
+        "test,1970-01-01T00:00:00.000+00:00"
+      ]);
+      expect(file.mimeType, "text/csv");
     });
   });
 }

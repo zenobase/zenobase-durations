@@ -1,7 +1,11 @@
+import 'dart:convert';
+
+import 'package:csv/csv.dart';
 import 'package:durations/models.dart';
 import 'package:meta/meta.dart';
 import 'package:quiver/check.dart';
 import 'package:redurx/redurx.dart';
+import 'package:sprintf/sprintf.dart';
 
 @immutable
 class AppState {
@@ -42,6 +46,18 @@ class AppState {
     var buckets = _buckets.values.toList();
     buckets.sort((a, b) => (b.latest ?? OffsetDateTime.earliest).compareTo(a.latest ?? OffsetDateTime.earliest));
     return buckets;
+  }
+
+  File export(DateTime now) {
+    var data = [["tag", "timestamp"]];
+    for (var bucket in _buckets.values) {
+      for (var event in bucket.events) {
+        data.add([bucket.label, event.timestamp.toString()]);
+      }
+    }
+    var filename = sprintf("durations_%04d-%02d-%02d.csv", [now.year, now.month, now.day]);
+    var bytes = utf8.encode(const ListToCsvConverter(eol: "\n").convert(data));
+    return File(filename, bytes, "text/csv");
   }
 }
 

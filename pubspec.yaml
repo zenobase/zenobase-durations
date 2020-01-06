@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   flutter_redurx: 1.1.1
   charts_flutter: 0.8.1
+  csv: 4.0.3
+  esys_flutter_share: 1.0.2
   equatable: 1.0.1
   meta: 1.1.8
   more: 2.2.0
