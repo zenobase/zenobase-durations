@@ -126,6 +126,7 @@ class OffsetDateTime extends Equatable implements Comparable<OffsetDateTime> {
   ]);
 }
 
+@immutable
 class Histogram extends Equatable {
 
   final List<Bin> bins;
@@ -154,6 +155,7 @@ class Histogram extends Equatable {
   String toString() => bins.toString();
 }
 
+@immutable
 class Bin extends Equatable {
 
   final int min, max;
