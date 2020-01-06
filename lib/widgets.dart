@@ -25,10 +25,10 @@ class DurationsApp extends StatelessWidget {
       title: "Durations",
       home: _home,
       theme: ThemeData(
-        brightness:Brightness.light
+        brightness: Brightness.light
       ),
       darkTheme: ThemeData(
-        brightness:Brightness.dark
+        brightness: Brightness.dark
       ),
       localizationsDelegates: [
         const CustomLocalizationsDelegate(),
@@ -247,7 +247,21 @@ class HistogramChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BarChart(_seriesList, domainAxis: OrdinalAxisSpec(showAxisLine: false, renderSpec: SmallTickRendererSpec(tickLengthPx: 0)));
+    var color = _getTextColor(context);
+    return BarChart(_seriesList,
+      primaryMeasureAxis: NumericAxisSpec(
+        renderSpec: GridlineRendererSpec(labelStyle: TextStyleSpec(color: color))
+      ),
+      domainAxis: OrdinalAxisSpec(
+        showAxisLine: false,
+        renderSpec: SmallTickRendererSpec(labelStyle: TextStyleSpec(color: color), tickLengthPx: 0)
+      )
+    );
+  }
+
+  static Color _getTextColor(BuildContext context) {
+    var color = Theme.of(context).textTheme.headline.color;
+    return Color(r: color.red, g: color.green, b: color.blue, a: color.alpha);
   }
 }
 
