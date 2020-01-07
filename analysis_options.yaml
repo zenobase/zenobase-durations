@@ -1,9 +1,9 @@
 include: package:effective_dart/analysis_options.1.1.0.yaml
 
-# analyzer:
-#  strong-mode:
-#    implicit-casts: false
-#    implicit-dynamic: false
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
 
 linter:
   rules:

@@ -43,12 +43,12 @@ class EventEntity extends Equatable {
   EventEntity(this.id, this.bucketId, this.timestamp);
 
   EventEntity.fromMap(Map<String, dynamic> record) :
-    this(record["id"], record["bucket_id"], OffsetDateTime.parse(record["timestamp"]));
+    this(record["id"] as String, record["bucket_id"] as String, OffsetDateTime.parse(record["timestamp"] as String));
 
   @override
   List<Object> get props => [id, bucketId, timestamp];
 
-  Map<String, dynamic> toMap() => {
+  Map<String, String> toMap() => {
     "id": id,
     "bucket_id": bucketId,
     "timestamp": timestamp.toString()
@@ -102,12 +102,12 @@ class BucketEntity extends Equatable {
   BucketEntity(this.id, this.label);
 
   BucketEntity.fromMap(Map<String, dynamic> record) :
-    this(record["id"], record["label"]);
+    this(record["id"] as String, record["label"] as String);
 
   @override
   List<Object> get props => [id, label];
 
-  Map<String, dynamic> toMap() => {
+  Map<String, String> toMap() => {
     "id": id,
     "label": label
   };
