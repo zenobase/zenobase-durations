@@ -7,7 +7,7 @@
 - Translated to English, French and German.
 - Supports both light and dark themes.
 - Runs on Android 4.1 and iOS 8 (or later).
-- Available (in beta) on [Google Play](https://play.google.com/apps/testing/com.zenobase.durations) and in the [App Store](https://testflight.apple.com/join/2yFSm6KQ).
+- Available on [Google Play](https://play.google.com/store/apps/details?id=com.zenobase.durations) and in the [App Store](https://testflight.apple.com/join/2yFSm6KQ) (in beta).
 
 ## Screenshots
 
