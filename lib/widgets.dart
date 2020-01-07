@@ -209,7 +209,11 @@ class BucketPageState extends State<BucketPage> {
                 Expanded(
                   child: ListView.separated(
                     itemCount: bucket.size(),
-                    itemBuilder: (context, i) => EventTile(bucket, bucket.events[bucket.size() - 1 - i]),
+                    itemBuilder: (context, i) {
+                      var event = bucket.events[bucket.size() - 1 - i];
+                      var previousEvent = i + 1 < bucket.size() ? bucket.events[bucket.size() - 2 - i] : null;
+                      return EventTile(bucket, event, previousEvent);
+                    },
                     separatorBuilder: (context, i) => Divider(),
                     shrinkWrap: true,
                   ),
@@ -269,15 +273,16 @@ class EventTile extends StatelessWidget {
 
   final Bucket _bucket;
   final Event _event;
+  final Event _previousEvent;
 
-  EventTile(this._bucket, this._event);
+  EventTile(this._bucket, this._event, this._previousEvent);
 
   @override
   Widget build(BuildContext context) => Dismissible(
     key: Key(_event.id),
     child: ListTile(
-      title: Text(MaterialLocalizations.of(context).formatFullDate(_event.timestamp.local)),
-      subtitle: Text(MaterialLocalizations.of(context).formatTimeOfDay(TimeOfDay.fromDateTime(_event.timestamp.local))),
+      title: Text(_getTitle(context)),
+      subtitle: Text(_getSubtitle(context)),
       onTap: () async {
         var time = await _showDateTimePicker(context, _event.timestamp.local);
         if (time != null) {
@@ -289,6 +294,20 @@ class EventTile extends StatelessWidget {
       Provider.dispatch<AppState>(context, RemoveEvent(_bucket.id, _event));
     },
   );
+
+  String _getTitle(BuildContext context) {
+    var date = CustomLocalizations.of(context).formatShortDate(_event.timestamp.local);
+    var time = MaterialLocalizations.of(context).formatTimeOfDay(TimeOfDay.fromDateTime(_event.timestamp.local));
+    return "$date @ $time";
+  }
+
+  String _getSubtitle(BuildContext context) {
+    if (_previousEvent == null) {
+      return "";
+    }
+    var duration = _event.timestamp.utc.difference(_previousEvent.timestamp.utc);
+    return CustomLocalizations.of(context).formatDuration(duration, relative: true);
+  }
 }
 
 Future<DateTime> _showDateTimePicker(BuildContext context, DateTime initial) async {
