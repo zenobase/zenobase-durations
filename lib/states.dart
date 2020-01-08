@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:csv/csv.dart';
+import 'package:durations/localizations.dart';
 import 'package:durations/models.dart';
 import 'package:meta/meta.dart';
 import 'package:quiver/check.dart';
@@ -63,7 +64,7 @@ class AppState {
 
 abstract class UndoableAction<T> extends Action<T> {
 
-  final String message;
+  final MessageKey message;
 
   UndoableAction(this.message);
 
@@ -88,7 +89,7 @@ class RemoveBucket extends UndoableAction<AppState> {
 
   final Bucket bucket;
 
-  RemoveBucket(this.bucket) : super("bucket_removed");
+  RemoveBucket(this.bucket) : super(MessageKey.bucketRemoved);
 
   @override
   AppState reduce(AppState state) {
@@ -107,7 +108,7 @@ class StoreEvent extends UndoableAction<AppState> {
   final String bucketId;
   final Event event;
 
-  StoreEvent(this.bucketId, this.event) : super("event_added");
+  StoreEvent(this.bucketId, this.event) : super(MessageKey.eventAdded);
 
   @override
   AppState reduce(AppState state) {
@@ -125,7 +126,7 @@ class UpdateEvent extends UndoableAction<AppState> {
   final String bucketId;
   final Event from, to;
 
-  UpdateEvent(this.bucketId, this.from, this.to) : super("event_updated");
+  UpdateEvent(this.bucketId, this.from, this.to) : super(MessageKey.eventUpdated);
 
   @override
   AppState reduce(AppState state) {
@@ -143,7 +144,7 @@ class RemoveEvent extends UndoableAction<AppState> {
   final String bucketId;
   final Event event;
 
-  RemoveEvent(this.bucketId, this.event) : super("event_removed");
+  RemoveEvent(this.bucketId, this.event) : super(MessageKey.eventRemoved);
 
   @override
   AppState reduce(AppState state) {

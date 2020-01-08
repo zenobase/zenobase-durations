@@ -52,16 +52,16 @@ class BucketListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(CustomLocalizations.of(context).title),
+        title: Text(CustomLocalizations.of(context).message(MessageKey.title)),
         actions: <Widget>[
           PopupMenuButton<int>(
             onSelected: (value) {
               checkArgument(value == 1);
               var file = Provider.of<AppState>(context).store.state.export(DateTime.now());
-              Share.file(CustomLocalizations.of(context).title, file.name, file.bytes, file.mimeType);
+              Share.file(CustomLocalizations.of(context).message(MessageKey.export), file.name, file.bytes, file.mimeType);
             },
             itemBuilder: (context) => [
-              PopupMenuItem<int>(value: 1, child: Text(CustomLocalizations.of(context).exportMenuItem))
+              PopupMenuItem<int>(value: 1, child: Text(CustomLocalizations.of(context).message(MessageKey.export)))
             ])
         ],
       ),
@@ -85,7 +85,7 @@ class BucketListPage extends StatelessWidget {
           barrierDismissible: false,
           builder: (context) => BucketDialog(),
         ),
-        tooltip: CustomLocalizations.of(context).addButtonTooltip,
+        tooltip: CustomLocalizations.of(context).message(MessageKey.add),
         child: Icon(Icons.add),
       ),
     );
@@ -135,7 +135,7 @@ class BucketDialogState extends State<BucketDialog> {
     content: TextField(
       key: addBucketDialogLabelFieldKey,
       controller: _controller,
-      decoration: InputDecoration(hintText: CustomLocalizations.of(context).labelFieldHint),
+      decoration: InputDecoration(hintText: CustomLocalizations.of(context).message(MessageKey.label)),
       autofocus: true,
     ),
     actions: <Widget>[
@@ -183,7 +183,7 @@ class BucketPageState extends State<BucketPage> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.delete),
-              tooltip: CustomLocalizations.of(context).removeButtonTooltip,
+              tooltip: CustomLocalizations.of(context).message(MessageKey.remove),
               onPressed: () {
                 Future.delayed(Duration(seconds: 1), () => Provider.dispatch<AppState>(ContextCapture.current(), RemoveBucket(widget._bucket)));
                 Navigator.pop(context, true);
@@ -229,7 +229,7 @@ class BucketPageState extends State<BucketPage> {
               Provider.dispatch<AppState>(context, StoreEvent(widget._bucket.id, Event.generate(OffsetDateTime(time))));
             }
           },
-          tooltip: CustomLocalizations.of(context).addButtonTooltip,
+          tooltip: CustomLocalizations.of(context).message(MessageKey.add),
           child: Icon(Icons.add),
         )
     );
@@ -386,7 +386,7 @@ class UndoMiddleware extends Middleware<AppState> {
         content: Text(CustomLocalizations.of(context).message(action.message)),
         action: SnackBarAction(
           key: undoActionKey,
-          label: CustomLocalizations.of(context).undoLabel,
+          label: CustomLocalizations.of(context).message(MessageKey.undo),
           onPressed: () => store.dispatch(action.undo())
         )
       ));

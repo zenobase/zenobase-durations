@@ -8,21 +8,29 @@ void main() {
 
   group("translations", () {
 
+    void expectNoMissingMessages(CustomLocalizations lang) {
+      for (var key in MessageKey.values) {
+        expect(lang.message(key), isNotEmpty, reason: "message for $key");
+      }
+    }
+
     test("en", () {
       var en = CustomLocalizations(Locale("en"));
-      expect(en.addButtonTooltip, equals("Add"));
+      expect(en.message(MessageKey.add), equals("Add"));
+      expectNoMissingMessages(en);
     });
 
     test("de_CH", () {
-      var en = CustomLocalizations(Locale("de", "CH"));
-      expect(en.addButtonTooltip, equals("Hinzufügen"));
+      var de = CustomLocalizations(Locale("de", "CH"));
+      expect(de.message(MessageKey.add), equals("Hinzufügen"));
+      expectNoMissingMessages(de);
     });
 
     test("fr", () {
       var fr = CustomLocalizations(Locale("fr"));
-      expect(fr.addButtonTooltip, equals("Ajouter"));
+      expect(fr.message(MessageKey.add), equals("Ajouter"));
+      expectNoMissingMessages(fr);
     });
-
   });
 
   group("format durations", () {

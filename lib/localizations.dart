@@ -14,133 +14,126 @@ class CustomLocalizations {
     return Localizations.of<CustomLocalizations>(context, CustomLocalizations);
   }
 
-  String message(String key) => const {
+  String message(MessageKey key) => const {
     "en": {
-      "title": "Durations",
-      "label_field_hint": "Label",
-      "add_button_tooltip": "Add",
-      "remove_button_tooltip": "Remove",
-      "export_menu_item": "Export...",
-      "undo_label": "Undo",
-      "event_added": "Logged an event.",
-      "event_updated": "Updated an event.",
-      "event_removed": "Removed an event.",
-      "bucket_removed": "Removed a series.",
-      "duration_never": "never",
-      "duration_now": "just now",
-      "duration_future": "not yet",
-      "duration_instantly": "immediatly",
-      "duration_one_week": "1 week",
-      "duration_one_day": "1 day",
-      "duration_one_hour": "1 hour",
-      "duration_one_minute": "1 minute",
-      "duration_weeks": "%d weeks",
-      "duration_days": "%d days",
-      "duration_hours": "%d hours",
-      "duration_minutes": "%d minutes",
-      "duration_absolute": "%s ago",
-      "duration_relative": "after %s",
+      MessageKey.title: "Durations",
+      MessageKey.label: "Label",
+      MessageKey.add: "Add",
+      MessageKey.remove: "Remove",
+      MessageKey.export: "Export...",
+      MessageKey.undo: "Undo",
+      MessageKey.eventAdded: "Logged an event.",
+      MessageKey.eventUpdated: "Updated an event.",
+      MessageKey.eventRemoved: "Removed an event.",
+      MessageKey.bucketRemoved: "Removed a series.",
+      MessageKey.durationNever: "never",
+      MessageKey.durationNow: "just now",
+      MessageKey.durationFuture: "not yet",
+      MessageKey.durationInstantly: "immediatly",
+      MessageKey.durationOneWeek: "1 week",
+      MessageKey.durationOneDay: "1 day",
+      MessageKey.durationOneHour: "1 hour",
+      MessageKey.durationOneMinute: "1 minute",
+      MessageKey.durationWeeks: "%d weeks",
+      MessageKey.durationDays: "%d days",
+      MessageKey.durationHours: "%d hours",
+      MessageKey.durationMinutes: "%d minutes",
+      MessageKey.durationAbsolute: "%s ago",
+      MessageKey.durationRelative: "after %s",
     },
     "de": {
-      "title": "Durations",
-      "label_field_hint": "Label",
-      "add_button_tooltip": "Hinzufügen",
-      "remove_button_tooltip": "Löschen",
-      "export_menu_item": "Exportieren...",
-      "undo_label": "Rückgängig machen",
-      "event_added": "Ein Ereignis wurde hinzugefügt.",
-      "event_updated": "Ein Ereignis wurde aktualisiert.",
-      "event_removed": "Ein Ereignis wurde gelöscht.",
-      "bucket_removed": "Eine Serie wurde gelöscht.",
-      "duration_never": "noch nie",
-      "duration_now": "jetzt",
-      "duration_instantly": "sofort",
-      "duration_future": "noch nicht",
-      "duration_one_week": "1 Woche",
-      "duration_one_day": "1 Tag",
-      "duration_one_hour": "1 Stunde",
-      "duration_one_minute": "1 Minute",
-      "duration_weeks": "%d Wochen",
-      "duration_days": "%d Tagen",
-      "duration_hours": "%d Stunden",
-      "duration_minutes": "%d Minuten",
-      "duration_absolute": "vor %s",
-      "duration_relative": "nach %s",
+      MessageKey.title: "Durations",
+      MessageKey.label: "Label",
+      MessageKey.add: "Hinzufügen",
+      MessageKey.remove: "Löschen",
+      MessageKey.export: "Exportieren...",
+      MessageKey.undo: "Rückgängig machen",
+      MessageKey.eventAdded: "Ein Ereignis wurde hinzugefügt.",
+      MessageKey.eventUpdated: "Ein Ereignis wurde aktualisiert.",
+      MessageKey.eventRemoved: "Ein Ereignis wurde gelöscht.",
+      MessageKey.bucketRemoved: "Eine Serie wurde gelöscht.",
+      MessageKey.durationNever: "noch nie",
+      MessageKey.durationNow: "jetzt",
+      MessageKey.durationInstantly: "sofort",
+      MessageKey.durationFuture: "noch nicht",
+      MessageKey.durationOneWeek: "1 Woche",
+      MessageKey.durationOneDay: "1 Tag",
+      MessageKey.durationOneHour: "1 Stunde",
+      MessageKey.durationOneMinute: "1 Minute",
+      MessageKey.durationWeeks: "%d Wochen",
+      MessageKey.durationDays: "%d Tagen",
+      MessageKey.durationHours: "%d Stunden",
+      MessageKey.durationMinutes: "%d Minuten",
+      MessageKey.durationAbsolute: "vor %s",
+      MessageKey.durationRelative: "nach %s",
     },
     "fr": {
-      "title": "Durations",
-      "label_field_hint": "Label",
-      "add_button_tooltip": "Ajouter",
-      "remove_button_tooltip": "Effacer",
-      "export_menu_item": "Exporter...",
-      "undo_label": "Annuler",
-      "event_added": "Evénement enregistré.",
-      "event_updated": "Evénement mis à jour.",
-      "event_removed": "Evénement effacé.",
-      "bucket_removed": "Série effacée.",
-      "duration_never": "jamais",
-      "duration_now": "maintenant",
-      "duration_future": "pas encore",
-      "duration_instantly": "immédiatement",
-      "duration_one_week": "1 semaine",
-      "duration_one_day": "1 jour",
-      "duration_one_hour": "1 heure",
-      "duration_one_minute": "une minute",
-      "duration_weeks": "%d semaines",
-      "duration_days": "%d jours",
-      "duration_hours": "%d heures",
-      "duration_minutes": "%d minutes",
-      "duration_absolute": "il y a %s",
-      "duration_relative": "après %s",
+      MessageKey.title: "Durations",
+      MessageKey.label: "Label",
+      MessageKey.add: "Ajouter",
+      MessageKey.remove: "Effacer",
+      MessageKey.export: "Exporter...",
+      MessageKey.undo: "Annuler",
+      MessageKey.eventAdded: "Evénement enregistré.",
+      MessageKey.eventUpdated: "Evénement mis à jour.",
+      MessageKey.eventRemoved: "Evénement effacé.",
+      MessageKey.bucketRemoved: "Série effacée.",
+      MessageKey.durationNever: "jamais",
+      MessageKey.durationNow: "maintenant",
+      MessageKey.durationFuture: "pas encore",
+      MessageKey.durationInstantly: "immédiatement",
+      MessageKey.durationOneWeek: "1 semaine",
+      MessageKey.durationOneDay: "1 jour",
+      MessageKey.durationOneHour: "1 heure",
+      MessageKey.durationOneMinute: "une minute",
+      MessageKey.durationWeeks: "%d semaines",
+      MessageKey.durationDays: "%d jours",
+      MessageKey.durationHours: "%d heures",
+      MessageKey.durationMinutes: "%d minutes",
+      MessageKey.durationAbsolute: "il y a %s",
+      MessageKey.durationRelative: "après %s",
     },
   }[_locale.languageCode][key];
-
-  String get title => message("title");
-  String get labelFieldHint => message("label_field_hint");
-  String get addButtonTooltip => message("add_button_tooltip");
-  String get removeButtonTooltip => message("remove_button_tooltip");
-  String get exportMenuItem => message("export_menu_item");
-  String get undoLabel => message("undo_label");
 
   String formatDuration(Duration d, { bool relative = false }) {
     if (d == null) {
       checkArgument(!relative, message: "can't format missing durations relatively");
-      return message("duration_never");
+      return message(MessageKey.durationNever);
     }
     if (d.isNegative) {
       checkArgument(!relative, message: "can't format negative durations relatively");
-      return message("duration_future");
+      return message(MessageKey.durationFuture);
     }
     if (d.inSeconds < 60) {
-      return message(relative ? "duration_instantly" : "duration_now");
+      return message(relative ? MessageKey.durationInstantly : MessageKey.durationNow);
     }
-    return sprintf(message(relative ? "duration_relative" : "duration_absolute"), [_formatDuration(d)]);
+    return sprintf(message(relative ? MessageKey.durationRelative : MessageKey.durationAbsolute), [_formatDuration(d)]);
   }
 
   String _formatDuration(Duration d) {
     if (d.inDays >= 14) {
-      return sprintf(message("duration_weeks"), [d.inDays ~/ 7]);
+      return sprintf(message(MessageKey.durationWeeks), [d.inDays ~/ 7]);
     }
     if (d.inDays >= 7) {
-      return message("duration_one_week");
+      return message(MessageKey.durationOneWeek);
     }
     if (d.inDays > 1) {
-      return sprintf(message("duration_days"), [d.inDays]);
+      return sprintf(message(MessageKey.durationDays), [d.inDays]);
     }
     if (d.inDays == 1) {
-      return message("duration_one_day");
+      return message(MessageKey.durationOneDay);
     }
     if (d.inHours > 1) {
-      return sprintf(message("duration_hours"), [d.inHours]);
+      return sprintf(message(MessageKey.durationHours), [d.inHours]);
     }
     if (d.inHours == 1) {
-      return message("duration_one_hour");
+      return message(MessageKey.durationOneHour);
     }
     if (d.inMinutes > 1) {
-      return sprintf(message("duration_minutes"), [d.inMinutes]);
+      return sprintf(message(MessageKey.durationMinutes), [d.inMinutes]);
     }
     if (d.inMinutes == 1) {
-      return message("duration_one_minute");
+      return message(MessageKey.durationOneMinute);
     }
     return "";
   }
@@ -160,4 +153,31 @@ class CustomLocalizationsDelegate extends LocalizationsDelegate<CustomLocalizati
 
   @override
   bool shouldReload(CustomLocalizationsDelegate old) => false;
+}
+
+enum MessageKey {
+  title,
+  label,
+  add,
+  remove,
+  export,
+  undo,
+  eventAdded,
+  eventUpdated,
+  eventRemoved,
+  bucketRemoved,
+  durationNever,
+  durationNow,
+  durationFuture,
+  durationInstantly,
+  durationOneWeek,
+  durationOneDay,
+  durationOneHour,
+  durationOneMinute,
+  durationWeeks,
+  durationDays,
+  durationHours,
+  durationMinutes,
+  durationAbsolute,
+  durationRelative,
 }
