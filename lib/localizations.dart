@@ -77,7 +77,7 @@ class CustomLocalizations {
       "event_added": "Evénement enregistré.",
       "event_updated": "Evénement mis à jour.",
       "event_removed": "Evénement effacé.",
-      "bucket_removed": "Série effacé.",
+      "bucket_removed": "Série effacée.",
       "duration_never": "jamais",
       "duration_now": "maintenant",
       "duration_future": "pas encore",
