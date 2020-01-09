@@ -79,7 +79,7 @@ void main() {
     test("to local time", () {
       var s = "2019-07-31T12:34:56.789-05:30";
       var t = OffsetDateTime.parse(s);
-      expect(t.local, equals(DateTime(2019, 7, 31, 11, 4, 56, 789))); // TODO will fail outside of America/Los-Angeles
+      expect(t.local, equals(DateTime(2019, 7, 31, 12, 34, 56, 789).add(t.local.timeZoneOffset - t.offset)));
       expect(t.toString(), equals(s));
     });
 
