@@ -148,7 +148,13 @@ class BucketDialogState extends State<BucketDialog> {
         child: Text(MaterialLocalizations.of(context).okButtonLabel),
         onPressed: () {
           if (isNotBlank(_controller.text)) {
-            Provider.dispatch<AppState>(context, StoreBucket(Bucket.generate(_controller.text)));
+            var bucket = Bucket.generate(_controller.text);
+            Provider.dispatch<AppState>(context, StoreBucket(bucket));
+            if (_controller.text == "Demo") {
+              for (var event in Event.random()) {
+                Provider.dispatch<AppState>(context, StoreEvent(bucket.id, event));
+              }
+            }
             Navigator.of(context).pop();
           }
         },

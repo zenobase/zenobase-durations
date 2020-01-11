@@ -52,6 +52,10 @@ void main() {
 
   group("Event", () {
 
+    test("random", () {
+      expect(Event.random(), isNotEmpty);
+    });
+
     test("equality", () {
       final event = Event.generate(OffsetDateTime.earliest);
       expect({

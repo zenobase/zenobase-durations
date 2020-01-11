@@ -76,6 +76,27 @@ class Event extends Equatable {
   @override
   List<Object> get props => [id, timestamp];
 
+  static List<Event> random() {
+    var events = <Event>[];
+    var counts = {
+      Duration(days: 1, hours: 2): 3,
+      Duration(days: 3, hours: 2): 5,
+      Duration(days: 5, hours: 2): 6,
+      Duration(days: 7, hours: 2): 4,
+      Duration(days: 9, hours: 2): 2,
+    };
+    var durations = counts.entries.expand((entry) {
+      return List.generate(entry.value, (_) => entry.key);
+    });
+    var now = DateTime.now();
+    var t = DateTime(now.year, now.month, now.day, 12);
+    for (var duration in durations) {
+      t = t.subtract(duration);
+      events.add(Event.generate(OffsetDateTime(t)));
+    }
+    return events;
+  }
+
   @override
   String toString() => "{id: $id, timestamp: $timestamp}";
 }
