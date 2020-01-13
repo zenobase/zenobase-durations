@@ -113,13 +113,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  esys_flutter_share:
-    dependency: "direct main"
-    description:
-      name: esys_flutter_share
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -539,6 +532,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7+12"
+  wc_flutter_share:
+    dependency: "direct main"
+    description:
+      name: wc_flutter_share
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   web_socket_channel:
     dependency: transitive
     description:

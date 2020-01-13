@@ -13,7 +13,6 @@ dependencies:
   flutter_redurx: 1.1.1
   charts_flutter: 0.8.1
   csv: 4.0.3
-  esys_flutter_share: 1.0.2
   equatable: 1.0.1
   intl: 0.16.0
   meta: 1.1.8
@@ -24,6 +23,7 @@ dependencies:
   sembast: 2.1.2
   sprintf: 4.0.2
   uuid: 2.0.4
+  wc_flutter_share: 0.1.1
 
 dev_dependencies:
   flutter_test:

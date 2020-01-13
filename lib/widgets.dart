@@ -4,7 +4,6 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:durations/localizations.dart';
 import 'package:durations/models.dart';
 import 'package:durations/states.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redurx/flutter_redurx.dart';
 import 'package:quiver/check.dart';
 import 'package:quiver/strings.dart';
+import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class DurationsApp extends StatelessWidget {
 
@@ -58,7 +58,12 @@ class BucketListPage extends StatelessWidget {
             onSelected: (value) {
               checkArgument(value == 1);
               var file = Provider.of<AppState>(context).store.state.export(DateTime.now());
-              Share.file(CustomLocalizations.of(context).message(MessageKey.export), file.name, file.bytes, file.mimeType);
+              WcFlutterShare.share(
+                sharePopupTitle: CustomLocalizations.of(context).message(MessageKey.export),
+                fileName: file.name,
+                mimeType: file.mimeType,
+                bytesOfFile: file.bytes
+              );
             },
             itemBuilder: (context) => [
               PopupMenuItem<int>(value: 1, child: Text(CustomLocalizations.of(context).message(MessageKey.export)))
