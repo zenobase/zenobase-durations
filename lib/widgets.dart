@@ -40,6 +40,7 @@ class DurationsApp extends StatelessWidget {
         const Locale("de"),
         const Locale("fr"),
       ],
+      debugShowCheckedModeBanner: false,
     );
   }
 }
