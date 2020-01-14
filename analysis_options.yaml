@@ -1,4 +1,4 @@
-include: package:effective_dart/analysis_options.1.1.0.yaml
+include: package:effective_dart/analysis_options.1.2.0.yaml
 
 analyzer:
   strong-mode:
@@ -7,4 +7,5 @@ analyzer:
 
 linter:
   rules:
+    lines_longer_than_80_chars: false
     public_member_api_docs: false

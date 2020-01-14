@@ -2,9 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:charts_flutter/flutter.dart';
-import 'package:durations/localizations.dart';
-import 'package:durations/models.dart';
-import 'package:durations/states.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +11,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:quiver/check.dart';
 import 'package:quiver/strings.dart';
 import 'package:share/share.dart';
+
+import 'localizations.dart';
+import 'models.dart';
+import 'states.dart';
 
 class DurationsApp extends StatelessWidget {
 
@@ -77,7 +78,7 @@ class BucketListPage extends StatelessWidget {
           child: Connect<AppState, List<Bucket>>(
             convert: (state) => state.findBuckets(),
             where: (oldBuckets, newBuckets) => newBuckets != oldBuckets,
-            builder: (List<Bucket> buckets) => ListView.separated(
+            builder: (buckets) => ListView.separated(
               itemCount: buckets.length,
               itemBuilder: (context, i) => BucketTile(buckets[i]),
               separatorBuilder: (context, i) => Divider(),
@@ -207,7 +208,7 @@ class BucketPageState extends State<BucketPage> {
           child: Connect<AppState, Bucket>(
             convert: (state) => state.findBucket(widget._bucket.id),
             where: (oldBucket, newBucket) => newBucket != oldBucket || newBucket.events != oldBucket.events,
-            builder: (Bucket bucket) => Column(
+            builder: (bucket) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 if (bucket.size() > 2)

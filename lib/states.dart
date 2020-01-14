@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:csv/csv.dart';
-import 'package:durations/localizations.dart';
-import 'package:durations/models.dart';
 import 'package:meta/meta.dart';
 import 'package:quiver/check.dart';
 import 'package:redurx/redurx.dart';
 import 'package:sprintf/sprintf.dart';
+
+import 'localizations.dart';
+import 'models.dart';
 
 @immutable
 class AppState {

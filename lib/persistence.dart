@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:durations/models.dart';
-import 'package:durations/states.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_redurx/flutter_redurx.dart' as rx;
 import 'package:meta/meta.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
+
+import 'models.dart';
+import 'states.dart';
 
 class DatabaseManager {
 

@@ -21,7 +21,7 @@ void main() {
     await tester.pump();
   }
 
-  testWidgets("list buckets", (WidgetTester tester) async {
+  testWidgets("list buckets", (tester) async {
 
     var foo = Bucket.generate("foo");
     var bar = Bucket.generate("bar").withEvent(Event.generate(OffsetDateTime.now()));
@@ -40,7 +40,7 @@ void main() {
     expect(find.descendant(of: findBar, matching: find.text("1")), findsOneWidget);
   });
 
-  testWidgets("add a bucket", (WidgetTester tester) async {
+  testWidgets("add a bucket", (tester) async {
 
     await pumpState(tester, AppState.from([]));
     expect(find.byType(BucketTile), findsNothing);
@@ -59,7 +59,7 @@ void main() {
     expect(find.byKey(Key(actions.get<StoreBucket>(0).bucket.id)), findsOneWidget);
   });
 
-  testWidgets("add an instant event", (WidgetTester tester) async {
+  testWidgets("add an instant event", (tester) async {
 
     var bucket = Bucket.generate("foo");
     await pumpState(tester, AppState.from([bucket]));
@@ -77,7 +77,7 @@ void main() {
     expect(find.byKey(UndoMiddleware.undoActionKey), findsOneWidget);
   });
 
-  testWidgets("open a bucket", (WidgetTester tester) async {
+  testWidgets("open a bucket", (tester) async {
 
     var event = Event.generate(OffsetDateTime.earliest);
     var bucket = Bucket.generate("foo").withEvent(event);
@@ -91,7 +91,7 @@ void main() {
     expect(find.byKey(Key(event.id)), findsOneWidget);
   });
 
-  testWidgets("add an event", (WidgetTester tester) async {
+  testWidgets("add an event", (tester) async {
 
     var bucket = Bucket.generate("foo");
     await pumpState(tester, AppState.from([bucket]), BucketPage(bucket));
@@ -114,7 +114,7 @@ void main() {
     expect(find.byKey(UndoMiddleware.undoActionKey), findsOneWidget);
   });
 
-  testWidgets("edit an event", (WidgetTester tester) async {
+  testWidgets("edit an event", (tester) async {
 
     var event = Event.generate(OffsetDateTime.earliest);
     var bucket = Bucket.generate("foo").withEvent(event);
@@ -138,7 +138,7 @@ void main() {
     expect(find.byKey(UndoMiddleware.undoActionKey), findsOneWidget);
   });
 
-  testWidgets("remove an event", (WidgetTester tester) async {
+  testWidgets("remove an event", (tester) async {
 
     var event = Event.generate(OffsetDateTime.earliest);
     var bucket = Bucket.generate("foo").withEvent(event);
@@ -157,7 +157,7 @@ void main() {
     expect(find.byKey(UndoMiddleware.undoActionKey), findsOneWidget);
   });
 
-  testWidgets("remove a bucket", (WidgetTester tester) async {
+  testWidgets("remove a bucket", (tester) async {
 
     var bucket = Bucket.generate("foo");
     await pumpState(tester, AppState.from([bucket]));
