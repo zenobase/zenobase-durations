@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:charts_flutter/flutter.dart';
 import 'package:durations/localizations.dart';
@@ -9,9 +10,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redurx/flutter_redurx.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:quiver/check.dart';
 import 'package:quiver/strings.dart';
-import 'package:wc_flutter_share/wc_flutter_share.dart';
+import 'package:share/share.dart';
 
 class DurationsApp extends StatelessWidget {
 
@@ -56,15 +58,13 @@ class BucketListPage extends StatelessWidget {
         title: Text(CustomLocalizations.of(context).message(MessageKey.title)),
         actions: <Widget>[
           PopupMenuButton<int>(
-            onSelected: (value) {
+            onSelected: (value) async {
               checkArgument(value == 1);
               var file = Provider.of<AppState>(context).store.state.export(DateTime.now());
-              WcFlutterShare.share(
-                sharePopupTitle: CustomLocalizations.of(context).message(MessageKey.export),
-                fileName: file.name,
-                mimeType: file.mimeType,
-                bytesOfFile: file.bytes
-              );
+              var path = await getTemporaryDirectory();
+              var temp = File("${path.path}/${file.name}");
+              temp.writeAsBytesSync(file.bytes, flush: true);
+              Share.shareFile(temp, mimeType: file.mimeType);
             },
             itemBuilder: (context) => [
               PopupMenuItem<int>(value: 1, child: Text(CustomLocalizations.of(context).message(MessageKey.export)))

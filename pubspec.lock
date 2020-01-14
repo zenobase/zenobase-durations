@@ -380,6 +380,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  share:
+    dependency: "direct main"
+    description:
+      path: "packages/share"
+      ref: "feature/shareFile"
+      resolved-ref: "66766d0a2759316a70bea5c576855aeb3f3d0860"
+      url: "https://github.com/pboos/plugins.git"
+    source: git
+    version: "0.6.3+5"
   shelf:
     dependency: transitive
     description:
@@ -532,13 +541,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7+12"
-  wc_flutter_share:
-    dependency: "direct main"
-    description:
-      name: wc_flutter_share
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
   web_socket_channel:
     dependency: transitive
     description:

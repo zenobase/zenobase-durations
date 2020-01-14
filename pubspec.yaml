@@ -21,9 +21,13 @@ dependencies:
   path_provider: 1.5.1
   quiver: 2.0.5
   sembast: 2.1.2
+  share:
+    git:
+      url: https://github.com/pboos/plugins.git
+      path: packages/share
+      ref: feature/shareFile
   sprintf: 4.0.2
   uuid: 2.0.4
-  wc_flutter_share: 0.1.1
 
 dev_dependencies:
   flutter_test:

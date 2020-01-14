@@ -194,13 +194,13 @@ class Bin extends Equatable {
 }
 
 @immutable
-class File {
+class FileInfo {
 
   final String name;
   final List<int> bytes;
   final String mimeType;
 
-  File(this.name, this.bytes, this.mimeType);
+  FileInfo(this.name, this.bytes, this.mimeType);
 
   @override
   String toString() => name;

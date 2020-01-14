@@ -49,7 +49,7 @@ class AppState {
     return buckets;
   }
 
-  File export(DateTime now) {
+  FileInfo export(DateTime now) {
     var data = [["tag", "timestamp"]];
     for (var bucket in _buckets.values) {
       for (var event in bucket.events) {
@@ -58,7 +58,7 @@ class AppState {
     }
     var filename = sprintf("durations_%04d-%02d-%02d.csv", [now.year, now.month, now.day]);
     var bytes = utf8.encode(const ListToCsvConverter(eol: "\n").convert(data));
-    return File(filename, bytes, "text/csv");
+    return FileInfo(filename, bytes, "text/csv");
   }
 }
 
