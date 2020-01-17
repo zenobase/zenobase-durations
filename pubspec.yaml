@@ -10,32 +10,32 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_redurx: 1.1.1
-  charts_flutter: 0.8.1
-  csv: 4.0.3
-  equatable: 1.0.2
-  intl: 0.16.0
-  meta: 1.1.8
-  more: 2.2.0
-  path: 1.6.4
-  path_provider: 1.5.1
-  quiver: 2.0.5
-  sembast: 2.1.2
+  flutter_redurx: ^1.1.1
+  charts_flutter: ^0.8.1
+  csv: ^4.0.3
+  equatable: ^1.0.2
+  intl: ^0.16.0
+  meta: ^1.1.8
+  more: ^2.2.0
+  path: ^1.6.4
+  path_provider: ^1.5.1
+  quiver: ^2.0.5
+  sembast: ^2.1.2
   share:
     git:
       url: https://github.com/pboos/plugins.git
       path: packages/share
       ref: feature/shareFile
-  sprintf: 4.0.2
-  uuid: 2.0.4
+  sprintf: ^4.0.2
+  uuid: ^2.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: 0.7.4
-  effective_dart: 1.2.1
-  mockito: 4.1.1
-  test: 1.9.4
+  flutter_launcher_icons: ^0.7.4
+  effective_dart: ^1.2.1
+  mockito: ^4.1.1
+  test: ^1.9.4
 
 flutter:
   uses-material-design: true
