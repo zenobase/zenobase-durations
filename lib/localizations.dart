@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:quiver/check.dart';
 import 'package:sprintf/sprintf.dart';
 
+import 'models.dart';
+
 class CustomLocalizations {
 
   final Locale _locale;
@@ -110,23 +112,9 @@ class CustomLocalizations {
     if (d.inSeconds < 60) {
       return message(relative ? MessageKey.durationInstantly : MessageKey.durationNow);
     }
-    var ds = _split(d).take(2).map(_formatDuration).join(" ${message(MessageKey.and)} ");
-    return sprintf(message(relative ? MessageKey.durationRelative : MessageKey.durationAbsolute), [ds]);
-  }
-
-  Iterable<Duration> _split(Duration d) sync* {
-    if (d.inWeeks > 0) {
-      yield Duration(days: d.inWeeks * 7);
-    }
-    if (d.inDays % 7 > 0) {
-      yield Duration(days: d.inDays % 7);
-    }
-    if (d.inHours % 24 > 0) {
-      yield Duration(hours: d.inHours % 24);
-    }
-    if (d.inMinutes % 60 > 0) {
-      yield Duration(minutes: d.inMinutes % 60);
-    }
+    return sprintf(message(relative ? MessageKey.durationRelative : MessageKey.durationAbsolute), [
+      d.decompose().map(_formatDuration).join(" ${message(MessageKey.and)} ")
+    ]);
   }
 
   String _formatDuration(Duration d) {
@@ -200,9 +188,4 @@ enum MessageKey {
   durationMinutes,
   durationAbsolute,
   durationRelative,
-}
-
-extension Weeks on Duration {
-
-  int get inWeeks => inDays ~/ 7;
 }

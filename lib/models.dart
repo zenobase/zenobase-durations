@@ -205,3 +205,31 @@ class FileInfo {
   @override
   String toString() => name;
 }
+
+extension DurationExtension on Duration {
+
+  static final _fieldAccessors = <Duration Function(Duration)>[
+    (d) => Duration(days: d.inWeeks * 7),
+    (d) => Duration(days: d.inDays % 7),
+    (d) => Duration(hours: d.inHours % 24),
+    (d) => Duration(minutes: d.inMinutes % 60),
+  ];
+
+  int get inWeeks => inDays ~/ 7;
+
+  List<Duration> decompose({ int limit = 2 }) {
+    var durations = <Duration>[];
+    for (var fieldAccessor in _fieldAccessors) {
+      var duration = fieldAccessor(this);
+      if (duration.inSeconds > 0) {
+        durations.add(duration);
+      } else if (durations.isNotEmpty) {
+        break;
+      }
+      if (durations.length >= limit) {
+        break;
+      }
+    }
+    return durations;
+  }
+}

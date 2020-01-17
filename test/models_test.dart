@@ -169,4 +169,56 @@ void main() {
       ]));
     });
   });
+
+  group("Duration", () {
+
+    test("6 days in weeks", () {
+      expect(Duration(days: 6).inWeeks, 0);
+    });
+
+    test("7 days in weeks", () {
+      expect(Duration(days: 7).inWeeks, 1);
+    });
+
+    test("8 days in weeks", () {
+      expect(Duration(days: 8).inWeeks, 1);
+    });
+
+    test("14 days in weeks", () {
+      expect(Duration(days: 14).inWeeks, 2);
+    });
+
+    test("decompose minutes", () {
+      expect(Duration(minutes: 30).decompose(), [
+        Duration(minutes: 30)
+      ]);
+    });
+
+    test("decompose hours and minutes", () {
+      expect(Duration(hours: 12, minutes: 30).decompose(), [
+        Duration(hours: 12),
+        Duration(minutes: 30)
+      ]);
+    });
+
+    test("decompose days and hours, ignoring minutes", () {
+      expect(Duration(days: 2, hours: 12, minutes: 30).decompose(), [
+        Duration(days: 2),
+        Duration(hours: 12)
+      ]);
+    });
+
+    test("decompose weeks and days, ignoring hours and minutes", () {
+      expect(Duration(days: 16, hours: 12, minutes: 30).decompose(), [
+        Duration(days: 14),
+        Duration(days: 2)
+      ]);
+    });
+
+    test("decompose weeks, ignoring hours", () {
+      expect(Duration(days: 14, hours: 12).decompose(), [
+        Duration(days: 14)
+      ]);
+    });
+  });
 }
