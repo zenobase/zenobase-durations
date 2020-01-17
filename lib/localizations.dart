@@ -115,8 +115,8 @@ class CustomLocalizations {
   }
 
   Iterable<Duration> _split(Duration d) sync* {
-    if (d.inDays >= 7) {
-      yield Duration(days: (d.inDays ~/ 7) * 7);
+    if (d.inWeeks > 0) {
+      yield Duration(days: d.inWeeks * 7);
     }
     if (d.inDays % 7 > 0) {
       yield Duration(days: d.inDays % 7);
@@ -130,10 +130,10 @@ class CustomLocalizations {
   }
 
   String _formatDuration(Duration d) {
-    if (d.inDays >= 14) {
-      return sprintf(message(MessageKey.durationWeeks), [d.inDays ~/ 7]);
+    if (d.inWeeks > 1) {
+      return sprintf(message(MessageKey.durationWeeks), [d.inWeeks]);
     }
-    if (d.inDays >= 7) {
+    if (d.inWeeks == 1) {
       return message(MessageKey.durationOneWeek);
     }
     if (d.inDays > 1) {
@@ -200,4 +200,9 @@ enum MessageKey {
   durationMinutes,
   durationAbsolute,
   durationRelative,
+}
+
+extension Weeks on Duration {
+
+  int get inWeeks => inDays ~/ 7;
 }
