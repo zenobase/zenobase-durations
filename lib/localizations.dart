@@ -22,6 +22,7 @@ class CustomLocalizations {
       MessageKey.remove: "Remove",
       MessageKey.export: "Export...",
       MessageKey.undo: "Undo",
+      MessageKey.and: "and",
       MessageKey.eventAdded: "Logged an event.",
       MessageKey.eventUpdated: "Updated an event.",
       MessageKey.eventRemoved: "Removed an event.",
@@ -48,6 +49,7 @@ class CustomLocalizations {
       MessageKey.remove: "Löschen",
       MessageKey.export: "Exportieren...",
       MessageKey.undo: "Rückgängig machen",
+      MessageKey.and: "und",
       MessageKey.eventAdded: "Ein Ereignis wurde hinzugefügt.",
       MessageKey.eventUpdated: "Ein Ereignis wurde aktualisiert.",
       MessageKey.eventRemoved: "Ein Ereignis wurde gelöscht.",
@@ -74,6 +76,7 @@ class CustomLocalizations {
       MessageKey.remove: "Effacer",
       MessageKey.export: "Exporter...",
       MessageKey.undo: "Annuler",
+      MessageKey.and: "et",
       MessageKey.eventAdded: "Evénement enregistré.",
       MessageKey.eventUpdated: "Evénement mis à jour.",
       MessageKey.eventRemoved: "Evénement effacé.",
@@ -107,7 +110,23 @@ class CustomLocalizations {
     if (d.inSeconds < 60) {
       return message(relative ? MessageKey.durationInstantly : MessageKey.durationNow);
     }
-    return sprintf(message(relative ? MessageKey.durationRelative : MessageKey.durationAbsolute), [_formatDuration(d)]);
+    var ds = _split(d).take(2).map(_formatDuration).join(" ${message(MessageKey.and)} ");
+    return sprintf(message(relative ? MessageKey.durationRelative : MessageKey.durationAbsolute), [ds]);
+  }
+
+  Iterable<Duration> _split(Duration d) sync* {
+    if (d.inDays >= 7) {
+      yield Duration(days: (d.inDays ~/ 7) * 7);
+    }
+    if (d.inDays % 7 > 0) {
+      yield Duration(days: d.inDays % 7);
+    }
+    if (d.inHours % 24 > 0) {
+      yield Duration(hours: d.inHours % 24);
+    }
+    if (d.inMinutes % 60 > 0) {
+      yield Duration(minutes: d.inMinutes % 60);
+    }
   }
 
   String _formatDuration(Duration d) {
@@ -162,6 +181,7 @@ enum MessageKey {
   remove,
   export,
   undo,
+  and,
   eventAdded,
   eventUpdated,
   eventRemoved,

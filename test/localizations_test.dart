@@ -72,6 +72,12 @@ void main() {
       expect(en.formatDuration(duration, relative: true), equals("after 1 hour"));
     });
 
+    test("just over an hour ago", () {
+      var duration = Duration(hours: 1, minutes: 1, seconds: 1);
+      expect(en.formatDuration(duration), equals("1 hour and 1 minute ago"));
+      expect(en.formatDuration(duration, relative: true), equals("after 1 hour and 1 minute"));
+    });
+
     test("two hours ago", () {
       var duration = Duration(hours: 2);
       expect(en.formatDuration(duration), equals("2 hours ago"));
@@ -86,8 +92,8 @@ void main() {
 
     test("one day and one hour ago", () {
       var duration = Duration(days: 1, hours: 1);
-      expect(en.formatDuration(duration), equals("1 day ago"));
-      expect(en.formatDuration(duration, relative: true), equals("after 1 day"));
+      expect(en.formatDuration(duration), equals("1 day and 1 hour ago"));
+      expect(en.formatDuration(duration, relative: true), equals("after 1 day and 1 hour"));
     });
 
     test("two days ago", () {
@@ -102,14 +108,20 @@ void main() {
       expect(en.formatDuration(duration, relative: true), equals("after 1 week"));
     });
 
+    test("just over a week ago", () {
+      var duration = Duration(days: 7, hours: 6, minutes: 5);
+      expect(en.formatDuration(duration), equals("1 week and 6 hours ago"));
+      expect(en.formatDuration(duration, relative: true), equals("after 1 week and 6 hours"));
+    });
+
     test("one week ago and one day ago", () {
       var duration = Duration(days: 8);
-      expect(en.formatDuration(duration), equals("1 week ago"));
-      expect(en.formatDuration(duration, relative: true), equals("after 1 week"));
+      expect(en.formatDuration(duration), equals("1 week and 1 day ago"));
+      expect(en.formatDuration(duration, relative: true), equals("after 1 week and 1 day"));
     });
 
     test("two weeks ago", () {
-      var duration = Duration(days: 15);
+      var duration = Duration(days: 14);
       expect(en.formatDuration(duration), equals("2 weeks ago"));
       expect(en.formatDuration(duration, relative: true), equals("after 2 weeks"));
     });
