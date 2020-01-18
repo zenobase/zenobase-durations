@@ -155,17 +155,28 @@ class Histogram extends Equatable {
   Histogram(this.bins);
 
   static Histogram from(Iterable<Duration> durations, { int maxBins = 5 }) {
-    if (durations.isEmpty) {
+    var hours = _from(durations.map((d) => d.inHours).toList(), maxBins: maxBins, unit: "h");
+    if (hours.bins.isEmpty || hours.bins[0].max < 24) {
+      return hours;
+    }
+    var days = _from(durations.map((d) => d.inDays).toList(), maxBins: maxBins, unit: "d");
+    if (days.bins.isEmpty || days.bins[0].max < 7) {
+      return days;
+    }
+    return _from(durations.map((d) => d.inWeeks).toList(), maxBins: maxBins, unit: "w");
+  }
+
+  static Histogram _from(List<int> values, { int maxBins, String unit }) {
+    if (values.isEmpty) {
       return Histogram(const []);
     }
-    var days = durations.map((d) => d.inDays).toList();
-    var binExtent = iterables.extent(days);
+    var binExtent = iterables.extent(values);
     var binSpan = binExtent.max - binExtent.min + 1;
     var binOffset = binExtent.min;
     var binSize = (binSpan / maxBins).ceil();
     var binCount = (binSpan / binSize).ceil();
-    var binValues = Multiset.from(days.map((day) => (day - binOffset) ~/ binSize));
-    var bins = List.generate(binCount, (i) => Bin(binOffset + i * binSize, binOffset + (i + 1) * binSize - 1, binValues[i]));
+    var binValues = Multiset.from(values.map((day) => (day - binOffset) ~/ binSize));
+    var bins = List.generate(binCount, (i) => Bin(binOffset + i * binSize, binOffset + (i + 1) * binSize - 1, binValues[i], unit));
     return Histogram(bins);
   }
 
@@ -181,13 +192,14 @@ class Bin extends Equatable {
 
   final int min, max;
   final int count;
+  final String unit;
 
-  Bin(this.min, this.max, this.count);
+  Bin(this.min, this.max, this.count, this.unit);
 
-  String get label => max > min ? "$min–${max}d" : "${min}d";
+  String get label => max > min ? "$min–$max$unit" : "$min$unit";
 
   @override
-  List<Object> get props => [min, max, count];
+  List<Object> get props => [min, max, count, unit];
 
   @override
   String toString() => "$label:$count";

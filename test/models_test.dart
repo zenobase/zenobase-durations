@@ -29,7 +29,7 @@ void main() {
       var bucket = Bucket.generate("foo")
           .withEvent(Event.generate(OffsetDateTime(now)))
           .withEvent(Event.generate(OffsetDateTime(now.add(Duration(days: 1)))));
-      expect(bucket.histogram(), Histogram([Bin(1, 1, 1)]));
+      expect(bucket.histogram(), Histogram([Bin(1, 1, 1, "d")]));
     });
 
     test("equality", () {
@@ -130,7 +130,7 @@ void main() {
       expect(Histogram.from([
         Duration(days: 42),
       ]), Histogram([
-        Bin(42, 42, 1)
+        Bin(6, 6, 1, "w")
       ]));
     });
 
@@ -139,7 +139,7 @@ void main() {
         Duration(days: 42),
         Duration(days: 42),
       ]), Histogram([
-        Bin(42, 42, 2)
+        Bin(6, 6, 2, "w")
       ]));
     });
 
@@ -149,23 +149,23 @@ void main() {
         Duration(days: 4),
         Duration(days: 5),
       ]), Histogram([
-        Bin(4, 4, 2),
-        Bin(5, 5, 1),
+        Bin(4, 4, 2, "d"),
+        Bin(5, 5, 1, "d"),
       ]));
     });
 
     test("bins spanning multiple values", () {
       expect(Histogram.from([
-        Duration(days: 1),
-        Duration(days: 2),
-        Duration(days: 3),
-        Duration(days: 4),
-        Duration(days: 5),
-        Duration(days: 6),
+        Duration(hours: 1),
+        Duration(hours: 2),
+        Duration(hours: 3),
+        Duration(hours: 4),
+        Duration(hours: 5),
+        Duration(hours: 6),
       ]), Histogram([
-        Bin(1, 2, 2),
-        Bin(3, 4, 2),
-        Bin(5, 6, 2),
+        Bin(1, 2, 2, "h"),
+        Bin(3, 4, 2, "h"),
+        Bin(5, 6, 2, "h"),
       ]));
     });
   });
