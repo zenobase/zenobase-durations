@@ -156,11 +156,11 @@ class Histogram extends Equatable {
 
   static Histogram from(Iterable<Duration> durations, { int maxBins = 5 }) {
     var hours = _from(durations.map((d) => d.inHours).toList(), maxBins: maxBins, unit: "h");
-    if (hours.bins.isEmpty || hours.bins[0].max < 24) {
+    if (hours.bins.isEmpty || hours.bins[0].max < 48) {
       return hours;
     }
     var days = _from(durations.map((d) => d.inDays).toList(), maxBins: maxBins, unit: "d");
-    if (days.bins.isEmpty || days.bins[0].max < 7) {
+    if (days.bins.isEmpty || days.bins[0].max < 14) {
       return days;
     }
     return _from(durations.map((d) => d.inWeeks).toList(), maxBins: maxBins, unit: "w");
@@ -196,7 +196,7 @@ class Bin extends Equatable {
 
   Bin(this.min, this.max, this.count, this.unit);
 
-  String get label => max > min ? "$min–$max$unit" : "$min$unit";
+  String get label => max > min ? "$min–${max + 1}$unit" : "$min-${min + 1}$unit";
 
   @override
   List<Object> get props => [min, max, count, unit];

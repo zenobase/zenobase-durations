@@ -27,9 +27,9 @@ void main() {
     test("histogram", () {
       var now = DateTime.now();
       var bucket = Bucket.generate("foo")
-          .withEvent(Event.generate(OffsetDateTime(now)))
-          .withEvent(Event.generate(OffsetDateTime(now.add(Duration(days: 1)))));
-      expect(bucket.histogram(), Histogram([Bin(1, 1, 1, "d")]));
+        .withEvent(Event.generate(OffsetDateTime(now)))
+        .withEvent(Event.generate(OffsetDateTime(now.add(Duration(days: 2)))));
+      expect(bucket.histogram(), Histogram([Bin(2, 2, 1, "d")]));
     });
 
     test("equality", () {
@@ -126,11 +126,27 @@ void main() {
       expect(Histogram.from([]), Histogram([]));
     });
 
-    test("single value", () {
+    test("single value, in hours", () {
       expect(Histogram.from([
-        Duration(days: 42),
+        Duration(hours: 47),
       ]), Histogram([
-        Bin(6, 6, 1, "w")
+        Bin(47, 47, 1, "h")
+      ]));
+    });
+
+    test("single value, in days", () {
+      expect(Histogram.from([
+        Duration(days: 13),
+      ]), Histogram([
+        Bin(13, 13, 1, "d")
+      ]));
+    });
+
+    test("single value, in weeks", () {
+      expect(Histogram.from([
+        Duration(days: 14),
+      ]), Histogram([
+        Bin(2, 2, 1, "w")
       ]));
     });
 
