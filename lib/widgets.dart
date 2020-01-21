@@ -65,7 +65,11 @@ class BucketListPage extends StatelessWidget {
               var temp = await getTemporaryDirectory();
               var file = File("${temp.path}/${info.name}");
               file.writeAsBytesSync(info.bytes, flush: true);
-              Share.shareFile(file, mimeType: info.mimeType);
+              var box = context.findRenderObject() as RenderBox;
+              Share.shareFile(file,
+                mimeType: info.mimeType,
+                sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size
+              );
             },
             itemBuilder: (context) => [
               PopupMenuItem<int>(value: 1, child: Text(CustomLocalizations.of(context).message(MessageKey.export)))
