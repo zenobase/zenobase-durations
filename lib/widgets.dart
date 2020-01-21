@@ -50,6 +50,8 @@ class DurationsApp extends StatelessWidget {
 
 class BucketListPage extends StatelessWidget {
 
+  static final _menuKey = GlobalKey();
+
   const BucketListPage();
 
   @override
@@ -59,17 +61,16 @@ class BucketListPage extends StatelessWidget {
         title: Text(CustomLocalizations.of(context).message(MessageKey.title)),
         actions: <Widget>[
           PopupMenuButton<int>(
+            key: _menuKey,
             onSelected: (value) async {
               checkArgument(value == 1);
               var info = Provider.of<AppState>(context).store.state.export(DateTime.now());
               var temp = await getTemporaryDirectory();
               var file = File("${temp.path}/${info.name}");
               file.writeAsBytesSync(info.bytes, flush: true);
-              var box = context.findRenderObject() as RenderBox;
-              Share.shareFile(file,
-                mimeType: info.mimeType,
-                sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size
-              );
+              var box = _menuKey.currentContext.findRenderObject() as RenderBox;
+              var sharePositionOrigin = box.localToGlobal(Offset.zero) & box.size;
+              Share.shareFile(file, mimeType: info.mimeType, sharePositionOrigin: sharePositionOrigin);
             },
             itemBuilder: (context) => [
               PopupMenuItem<int>(value: 1, child: Text(CustomLocalizations.of(context).message(MessageKey.export)))
