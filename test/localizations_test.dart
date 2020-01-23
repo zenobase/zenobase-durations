@@ -45,7 +45,7 @@ void main() {
     test("less than a minute ago", () {
       var duration = Duration(seconds: 59);
       expect(en.formatDuration(duration), equals("just now"));
-      expect(en.formatDuration(duration, relative: true), equals("immediatly"));
+      expect(en.formatDuration(duration, relative: true), equals("immediately"));
     });
 
     test("one minute ago", () {

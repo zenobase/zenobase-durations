@@ -32,7 +32,7 @@ class CustomLocalizations {
       MessageKey.durationNever: "never",
       MessageKey.durationNow: "just now",
       MessageKey.durationFuture: "not yet",
-      MessageKey.durationInstantly: "immediatly",
+      MessageKey.durationInstantly: "immediately",
       MessageKey.durationOneWeek: "1 week",
       MessageKey.durationOneDay: "1 day",
       MessageKey.durationOneHour: "1 hour",
