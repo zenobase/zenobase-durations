@@ -174,6 +174,8 @@ class PersistenceMiddleware extends rx.Middleware<AppState> {
       _events.removeAll(action.bucket.id);
     } else if (action is StoreEvent) {
       _events.store(EventEntity(action.event.id, action.bucketId, action.event.timestamp));
+    } else if (action is UpdateEvent) {
+      _events.store(EventEntity(action.to.id, action.bucketId, action.to.timestamp));
     } else if (action is RemoveEvent) {
       _events.remove(action.event.id);
     }

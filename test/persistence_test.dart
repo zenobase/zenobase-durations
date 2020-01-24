@@ -120,6 +120,13 @@ void main() {
       verify(events.store(EventEntity(event.id, id, event.timestamp)));
     });
 
+    test("update an event", () {
+      var from = Event.generate(OffsetDateTime.earliest);
+      var to = Event(from.id, OffsetDateTime.now());
+      persistence.afterAction(null, UpdateEvent(id, from, to), null);
+      verify(events.store(EventEntity(to.id, id, to.timestamp)));
+    });
+
     test("remove an event", () {
       var event = Event.generate(OffsetDateTime.earliest);
       persistence.afterAction(null, RemoveEvent(id, event), null);
