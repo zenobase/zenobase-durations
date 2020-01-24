@@ -5,12 +5,14 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redurx/flutter_redurx.dart';
+import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:quiver/check.dart';
 import 'package:quiver/strings.dart';
 import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'localizations.dart';
 import 'models.dart';
@@ -50,7 +52,7 @@ class DurationsApp extends StatelessWidget {
 
 class BucketListPage extends StatelessWidget {
 
-  static final _menuKey = GlobalKey();
+  static final GlobalKey menuKey = GlobalKey();
 
   const BucketListPage();
 
@@ -60,21 +62,20 @@ class BucketListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(CustomLocalizations.of(context).message(MessageKey.title)),
         actions: <Widget>[
-          PopupMenuButton<int>(
-            key: _menuKey,
-            onSelected: (value) async {
-              checkArgument(value == 1);
-              var info = Provider.of<AppState>(context).store.state.export(DateTime.now());
-              var temp = await getTemporaryDirectory();
-              var file = File("${temp.path}/${info.name}");
-              file.writeAsBytesSync(info.bytes, flush: true);
-              var box = _menuKey.currentContext.findRenderObject() as RenderBox;
-              var sharePositionOrigin = box.localToGlobal(Offset.zero) & box.size;
-              Share.shareFile(file, mimeType: info.mimeType, sharePositionOrigin: sharePositionOrigin);
-            },
+          PopupMenuButton<void Function(BuildContext)>(
+            key: menuKey,
+            onSelected: (value) => value(context),
             itemBuilder: (context) => [
-              PopupMenuItem<int>(value: 1, child: Text(CustomLocalizations.of(context).message(MessageKey.export)))
-            ])
+              PopupMenuItem<void Function(BuildContext)>(
+                value: showExport,
+                child: Text(CustomLocalizations.of(context).message(MessageKey.export))
+              ),
+              PopupMenuItem<void Function(BuildContext)>(
+                value: showAbout,
+                child: Text(CustomLocalizations.of(context).message(MessageKey.about))
+              ),
+            ]
+          )
         ],
       ),
       body: ContextCapture(
@@ -101,6 +102,42 @@ class BucketListPage extends StatelessWidget {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  void showExport(BuildContext context) async {
+    var info = Provider.of<AppState>(context).store.state.export(DateTime.now());
+    var temp = await getTemporaryDirectory();
+    var file = File("${temp.path}/${info.name}");
+    file.writeAsBytesSync(info.bytes, flush: true);
+    var box = menuKey.currentContext.findRenderObject() as RenderBox;
+    var sharePositionOrigin = box.localToGlobal(Offset.zero) & box.size;
+    Share.shareFile(file, mimeType: info.mimeType, sharePositionOrigin: sharePositionOrigin);
+  }
+
+  void showAbout(BuildContext context) async {
+    var info = await PackageInfo.fromPlatform();
+    var theme = Theme.of(context);
+    var aboutTextStyle = theme.textTheme.body2;
+    var linkStyle = theme.textTheme.body2.copyWith(color: theme.accentColor);
+    showAboutDialog(
+      context: context,
+      applicationIcon: Image.asset("assets/launcher/icon.png", width: 72.0),
+      applicationName: info.appName,
+      applicationVersion: info.version,
+      applicationLegalese: "© Zenobase LLC",
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 24.0),
+          child: Linkify(
+            text: CustomLocalizations.of(context).message(MessageKey.aboutText),
+            style: aboutTextStyle,
+            linkStyle: linkStyle,
+            onOpen: (link) => launch(link.url)
+          ),
+        )
+      ]
+    );
+    return;
   }
 }
 

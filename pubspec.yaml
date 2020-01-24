@@ -8,6 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_linkify: ^3.1.0
   flutter_localizations:
     sdk: flutter
   flutter_redurx: ^1.1.1
@@ -17,6 +18,7 @@ dependencies:
   intl: ^0.16.0
   meta: ^1.1.8
   more: ^2.2.0
+  package_info: ^0.4.0+13
   path: ^1.6.4
   path_provider: ^1.5.1
   quiver: ^2.0.5
@@ -27,6 +29,7 @@ dependencies:
       path: packages/share
       ref: feature/shareFile
   sprintf: ^4.0.2
+  url_launcher: ^5.4.1
   uuid: ^2.0.4
 
 dev_dependencies:
@@ -38,6 +41,8 @@ dev_dependencies:
   test: ^1.9.4
 
 flutter:
+  assets:
+    - assets/launcher/icon.png
   uses-material-design: true
 
 flutter_icons:

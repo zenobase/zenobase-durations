@@ -2,6 +2,7 @@ import 'package:durations/models.dart';
 import 'package:durations/states.dart';
 import 'package:durations/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redurx/flutter_redurx.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -20,6 +21,34 @@ void main() {
     await tester.pumpWidget(Provider(store: store, child: DurationsApp(home: home)));
     await tester.pump();
   }
+
+  testWidgets("about dialog", (tester) async {
+
+    const MethodChannel("plugins.flutter.io/package_info").setMockMethodCallHandler((call) async {
+      if (call.method == "getAll") {
+        return <String, dynamic>{
+          "appName": "Foo",
+          "version": "1.2.3",
+        };
+      }
+      return null;
+    });
+
+    await pumpState(tester, AppState.from([]));
+
+    await tester.tap(find.byKey(BucketListPage.menuKey));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("About..."));
+    await tester.pumpAndSettle();
+    expect(find.byType(AboutDialog), findsOneWidget);
+    expect(find.text("Foo"), findsOneWidget);
+    expect(find.text("1.2.3"), findsOneWidget);
+
+    await tester.tap(find.text("CLOSE"));
+    await tester.pumpAndSettle();
+    expect(find.byType(AboutDialog), findsNothing);
+  });
 
   testWidgets("list buckets", (tester) async {
 
