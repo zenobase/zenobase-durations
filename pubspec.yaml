@@ -23,11 +23,7 @@ dependencies:
   path_provider: ^1.6.7
   quiver: ^2.0.5
   sembast: ^2.4.2
-  share:
-    git:
-      url: https://github.com/pboos/plugins.git
-      path: packages/share
-      ref: feature/shareFile
+  share: ^0.6.5
   sprintf: ^4.0.2
   url_launcher: ^5.4.5
   uuid: ^2.0.4

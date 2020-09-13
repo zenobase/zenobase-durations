@@ -111,7 +111,7 @@ class BucketListPage extends StatelessWidget {
     file.writeAsBytesSync(info.bytes, flush: true);
     var box = menuKey.currentContext.findRenderObject() as RenderBox;
     var sharePositionOrigin = box.localToGlobal(Offset.zero) & box.size;
-    Share.shareFile(file, mimeType: info.mimeType, sharePositionOrigin: sharePositionOrigin);
+    Share.shareFiles([file.path], mimeTypes: [info.mimeType], sharePositionOrigin: sharePositionOrigin);
   }
 
   void showAbout(BuildContext context) async {
